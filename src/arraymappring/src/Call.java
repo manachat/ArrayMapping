@@ -6,6 +6,7 @@ public class Call extends AbstractCall {
 
     public Call(StringBuilder content){
         this.content = content;
+        parseCall();
     }
 
     public Call(){

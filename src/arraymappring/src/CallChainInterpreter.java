@@ -29,6 +29,7 @@ public class CallChainInterpreter {
         Expression currentExpression = new Expression();
         Condition currentCondition = Condition.CALL_PARSE;
 
+        /*
         for(int charIndex = 0; charIndex < input.length(); charIndex++){
             switch (currentCondition){
                 case CALL:
@@ -97,6 +98,8 @@ public class CallChainInterpreter {
             }
         }
 
+
+         */
 
         return null;
     }
