@@ -10,7 +10,7 @@ public class Main {
         CallChain call = CallChainInterpreter.parseString(input);
         */
 
-        CallChain test = new CallChain().parseFunctions("map{loh}%>%filter{kek}");
+        CallChain test = new CallChain("");
     }
 
 }

@@ -22,7 +22,6 @@ public class CallChainInterpreter {
     }
 
     public static CallChain parseString(String input){
-        CallChain result = new CallChain();
         Call currentCall;
         StringBuilder operationWord = new StringBuilder(7); //map: 3 letters | filter 6 letters
         StringBuilder expressionContent = new StringBuilder();

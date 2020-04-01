@@ -28,8 +28,7 @@ public class CallChain extends AbstractCall{
      * @param input raw string containing call chain
      * @return CallChain object
      */
-    public CallChain parseFunctions(String input){
-        CallChain result = new CallChain();
+    public CallChain(String input){
         Call currentCall = new Call();
         Condition condition = Condition.WORD;
         FunctionType functionType = FunctionType.SEPARATOR;
@@ -67,7 +66,7 @@ public class CallChain extends AbstractCall{
                             currentCall = new FilterCall(content);
                         }
 
-                        result.addCall(currentCall);
+                        addCall(currentCall);
                         content = new StringBuilder();
                         condition = Condition.INTERMEDIATE;
                         functionType = FunctionType.SEPARATOR;
@@ -93,11 +92,5 @@ public class CallChain extends AbstractCall{
                     break;
             }
         }
-
-
-
-
-
-        return result;
     }
 }
