@@ -26,7 +26,7 @@ public class CallChainInterpreter {
         Call currentCall;
         StringBuilder operationWord = new StringBuilder(7); //map: 3 letters | filter 6 letters
         StringBuilder expressionContent = new StringBuilder();
-        Expression currentExpression;
+        Expression currentExpression = new Expression();
         Condition currentCondition = Condition.CALL_PARSE;
 
         for(int charIndex = 0; charIndex < input.length(); charIndex++){
@@ -88,7 +88,7 @@ public class CallChainInterpreter {
                     break;
                 case LEFT:
                     if (input.charAt(charIndex) == ' '){
-                        
+
                     }
                     else if (input.charAt(charIndex) == '('){
 
