@@ -25,19 +25,19 @@ public class CallChain extends AbstractCall{
 
     /**
      * Divides raw input string into sequence of Call objects
-     * @param input raw string containing call chain
+     * @param rawString raw string containing call chain
      * @return CallChain object
      */
-    public CallChain(String input){
-        Call currentCall = new Call();
+    public CallChain(String rawString){
+        char[] input = rawString.toCharArray();
+        Call currentCall;
         Condition condition = Condition.WORD;
         FunctionType functionType = FunctionType.SEPARATOR;
         StringBuilder function = new StringBuilder(7); //map: 3 letters, filter: 6 letters, %>%: 3 letters
         StringBuilder content = new StringBuilder();
 
 
-        for (int charIndex = 0; charIndex < input.length(); charIndex++){
-            char currChar = input.charAt(charIndex);
+        for (char currChar : input){
             switch (condition){
                 case WORD:
                     if (currChar == '{'){
@@ -60,10 +60,10 @@ public class CallChain extends AbstractCall{
                 case CONTENT:
                     if (currChar == '}'){
                         if (functionType == FunctionType.MAP){
-                            currentCall = new MapCall(content);
+                            currentCall = new MapCall(content.toString());
                         }
                         else{
-                            currentCall = new FilterCall(content);
+                            currentCall = new FilterCall(content.toString());
                         }
 
                         addCall(currentCall);
@@ -91,6 +91,10 @@ public class CallChain extends AbstractCall{
                     }
                     break;
             }
+        }
+
+        if (condition != Condition.INTERMEDIATE){
+            throw new SYNTAX_ERROR();
         }
     }
 }

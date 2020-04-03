@@ -2,13 +2,13 @@ package arraymappring.src;
 
 public class MapCall extends Call {
 
-    public MapCall(StringBuilder content){
+    public MapCall(String content){
         super(content);
-        parseCall();
+
     }
 
     @Override
-    public void parseCall(){
-
+    public String toString(){
+        return "map{" + expression.toString() + "}";
     }
 }

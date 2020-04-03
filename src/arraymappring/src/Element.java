@@ -1,10 +1,22 @@
 package arraymappring.src;
 
-public class Element extends Expression {
-    private StringBuilder content = new StringBuilder();
+public class Element extends AbstractExpression {
+
+    public Element(String content){
+        super(content);
+        parseContent();
+    }
 
     @Override
-    public void appendContent(char ch){
-        content.append(ch);
+    protected void parseContent(){
+        if (!content.equals("element")){
+            throw new SYNTAX_ERROR();
+        }
+        returnType = Utilities.ReturnType.ARITHMETIC;
+    }
+
+    @Override
+    public String toString(){
+        return "element";
     }
 }

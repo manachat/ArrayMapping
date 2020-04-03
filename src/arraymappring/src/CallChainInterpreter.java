@@ -1,7 +1,5 @@
 package arraymappring.src;
 
-import java.beans.beancontext.BeanContextServiceRevokedEvent;
-
 public class CallChainInterpreter {
     private enum Condition{
         CALL,
@@ -25,7 +23,7 @@ public class CallChainInterpreter {
         Call currentCall;
         StringBuilder operationWord = new StringBuilder(7); //map: 3 letters | filter 6 letters
         StringBuilder expressionContent = new StringBuilder();
-        Expression currentExpression = new Expression();
+        //AbstractExpression currentExpression = new AbstractExpression();
         Condition currentCondition = Condition.CALL_PARSE;
 
         /*
