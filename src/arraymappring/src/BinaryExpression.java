@@ -37,16 +37,54 @@ public class BinaryExpression extends AbstractExpression {
                         condition = Condition.LEFT_BINARY;
                         ignoreBrackets++;
                     }
+                    else {
+                        throw new SYNTAX_ERROR();
+                    }
                 case LEFT_ELEMENT:
                     if (Utilities.isOperation(currChar)){
                         left = new Element(content.substring(0, currIndex));
                         operation = Utilities.charToOperation(currChar);
-                       
+                        condition = Condition.RIGHT;
                     }
+                    break;
+                case LEFT_CONSTANT:
+                    if (Utilities.isOperation(currChar)){
+                        left = new ConstantExpression(content.substring(0, currIndex));
+                        operation = Utilities.charToOperation(currChar);
+                        condition = Condition.RIGHT;
+                    }
+                    break;
+                case LEFT_BINARY:
+                    if (ignoreBrackets == 0){
+                        left = new BinaryExpression(content.substring(1, currIndex - 1));
+                        operation = Utilities.charToOperation(currChar);
+                        condition = Condition.RIGHT;
+                    }
+                    else if (currChar == '('){
+                        ignoreBrackets++;
+                    }
+                    else if (currChar == ')'){
+                        ignoreBrackets--;
+                    }
+                    break;
+                case RIGHT:
+                    if (currChar == 'e'){
+                        right = new Element(content.substring(currChar));
+                    }
+                    else if (Utilities.isDigit(currChar)){
+                        right = new ConstantExpression(content.substring(currChar));
+                    }
+                    else if (currChar == '('){
+                        right = new BinaryExpression(content.substring(currIndex + 1, content.length() - 1));
+                    }
+                    else {
+                        throw new SYNTAX_ERROR();
+                    }
+                    return;
             }
             currIndex++;
         }
-
+        returnType = getReturnType(operation);
     }
 
     public AbstractExpression getRightOp(){
@@ -55,6 +93,10 @@ public class BinaryExpression extends AbstractExpression {
 
     public Utilities.Operation getOperation(){
         return operation;
+    }
+
+    private Utilities.ReturnType getReturnType(Utilities.Operation operation){
+        return operation.ordinal() < 3 ? Utilities.ReturnType.ARITHMETIC : Utilities.ReturnType.LOGICAL;
     }
 
     @Override
