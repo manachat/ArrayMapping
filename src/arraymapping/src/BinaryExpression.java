@@ -43,6 +43,7 @@ public class BinaryExpression extends AbstractExpression {
                     else {
                         throw new SYNTAX_ERROR();
                     }
+                    break;
                 case LEFT_ELEMENT:
                     if (Utilities.isOperation(currChar)){
                         left = new Element(content.substring(0, currIndex));
@@ -56,6 +57,7 @@ public class BinaryExpression extends AbstractExpression {
                         operation = Utilities.charToOperation(currChar);
                         condition = Condition.RIGHT;
                     }
+
                     break;
                 case LEFT_BINARY:
                     if (ignoreBrackets == 0){
@@ -72,10 +74,10 @@ public class BinaryExpression extends AbstractExpression {
                     break;
                 case RIGHT:
                     if (currChar == 'e'){
-                        right = new Element(content.substring(currChar));
+                        right = new Element(content.substring(currIndex));
                     }
                     else if (Utilities.isDigit(currChar)){
-                        right = new ConstantExpression(content.substring(currChar));
+                        right = new ConstantExpression(content.substring(currIndex));
                     }
                     else if (currChar == '('){
                         right = new BinaryExpression(content.substring(currIndex + 1, content.length() - 1));
@@ -83,11 +85,14 @@ public class BinaryExpression extends AbstractExpression {
                     else {
                         throw new SYNTAX_ERROR();
                     }
+                    returnType = setReturnType(operation);
                     return;
             }
             currIndex++;
         }
-        returnType = setReturnType(operation);
+        if (condition != Condition.RIGHT){
+            throw new SYNTAX_ERROR();
+        }
     }
 
     private void checkOperandTypes(){

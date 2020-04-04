@@ -1,14 +1,11 @@
 package arraymapping.src;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CallChain extends AbstractCall{
     private List<AbstractCall> callChain = new ArrayList<>();
-
-    public void addCall(AbstractCall call){
-        callChain.add(call);
-    }
 
     private enum Condition {
         WORD,
@@ -22,6 +19,14 @@ public class CallChain extends AbstractCall{
         SEPARATOR
     }
 
+    public void addCall(AbstractCall call){
+        callChain.add(call);
+    }
+
+    public List<AbstractCall> getCallChain(){
+        return callChain;
+    }
+
 
     /**
      * Divides raw input string into sequence of Call objects
@@ -29,6 +34,9 @@ public class CallChain extends AbstractCall{
      * @return CallChain object
      */
     public CallChain(String rawString){
+        if (rawString.isEmpty()){
+            throw new SYNTAX_ERROR();
+        }
         char[] input = rawString.toCharArray();
         Call currentCall;
         Condition condition = Condition.WORD;
@@ -93,8 +101,28 @@ public class CallChain extends AbstractCall{
             }
         }
 
-        if (condition != Condition.INTERMEDIATE){
+        if (condition == Condition.INTERMEDIATE){
+            if (!function.toString().isEmpty()){
+                throw new SYNTAX_ERROR();
+            }
+        }
+        else{
             throw new SYNTAX_ERROR();
         }
+    }
+
+    @Override
+    public String toString(){
+        Iterator<AbstractCall> chainIterator = callChain.iterator();
+        AbstractCall current;
+        StringBuilder result = new StringBuilder();
+        while (chainIterator.hasNext()){
+            current = chainIterator.next();
+            result.append(current.toString());
+            if (chainIterator.hasNext()){
+                result.append("%>%");
+            }
+        }
+        return result.toString();
     }
 }

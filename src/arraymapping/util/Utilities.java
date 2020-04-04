@@ -83,8 +83,8 @@ public class Utilities {
                 return Operation.AND;
             case '|':
                 return Operation.OR;
+            default:
+                throw new SYNTAX_ERROR();
         }
-
-        throw new SYNTAX_ERROR();
     }
 }

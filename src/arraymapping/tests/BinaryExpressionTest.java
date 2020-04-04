@@ -10,6 +10,7 @@ import arraymapping.util.Utilities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static arraymapping.util.Utilities.Operation;
 
 class BinaryExpressionTest {
 
@@ -26,6 +27,9 @@ class BinaryExpressionTest {
         assertThrows(TYPE_ERROR.class, () -> new BinaryExpression("(6<3)*(5>element)"));
         assertThrows(SYNTAX_ERROR.class, () -> new BinaryExpression("alement<3"));
         assertThrows(SYNTAX_ERROR.class, () -> new BinaryExpression("8+ 15"));
+        assertThrows(SYNTAX_ERROR.class, () -> new BinaryExpression("8/4"));
+        test = new BinaryExpression("((((28+element)-6)-element)+1)*(element-42)");
+        assertEquals(Operation.MULTIPLICATION, test.getOperation());
     }
 
     @Test

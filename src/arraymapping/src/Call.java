@@ -2,7 +2,7 @@ package arraymapping.src;
 
 import arraymapping.util.Utilities;
 
-public class Call extends AbstractCall {
+public abstract class Call extends AbstractCall {
     protected AbstractExpression expression;
     protected String content;
 
@@ -10,6 +10,10 @@ public class Call extends AbstractCall {
     public Call(String content){
         this.content = content;
         parseCall();
+    }
+
+    public AbstractExpression getExpression() {
+        return expression;
     }
 
     private void parseCall(){

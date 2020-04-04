@@ -7,8 +7,7 @@ public class Main {
         String input = scanner.nextLine();
         CallChain call = CallChainInterpreter.parseString(input);
         */
-
-
+        CallChain test = new CallChain("map{element}%>%");
     }
 
 }
