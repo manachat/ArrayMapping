@@ -1,4 +1,6 @@
-package arraymappring.src;
+package arraymapping.src;
+
+import arraymapping.util.Utilities;
 
 public abstract class AbstractExpression {
 
@@ -7,6 +9,10 @@ public abstract class AbstractExpression {
 
     public AbstractExpression(String content){
         this.content = content;
+    }
+
+    public Utilities.ReturnType getReturnType(){
+        return returnType;
     }
 
     protected abstract void parseContent();

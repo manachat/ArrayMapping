@@ -1,4 +1,6 @@
-package arraymappring.src;
+package arraymapping.src;
+
+import arraymapping.util.Utilities;
 
 public class BinaryExpression extends AbstractExpression {
     private Utilities.Operation operation;
@@ -8,6 +10,7 @@ public class BinaryExpression extends AbstractExpression {
     public BinaryExpression(String content){
         super(content);
         parseContent();
+        checkOperandTypes();
     }
 
     private enum Condition {
@@ -84,7 +87,29 @@ public class BinaryExpression extends AbstractExpression {
             }
             currIndex++;
         }
-        returnType = getReturnType(operation);
+        returnType = setReturnType(operation);
+    }
+
+    private void checkOperandTypes(){
+        if (operation.ordinal() < 5){ //arithmetic operations
+            if (left.getReturnType() != Utilities.ReturnType.ARITHMETIC || right.getReturnType() != Utilities.ReturnType.ARITHMETIC){
+                throw new TYPE_ERROR();
+            }
+        }
+        else if (operation.ordinal() > 5){ //boolean operations
+            if (left.getReturnType() != Utilities.ReturnType.LOGICAL || right.getReturnType() != Utilities.ReturnType.LOGICAL){
+                throw new TYPE_ERROR();
+            }
+        }
+        else { // "=" operation, I assumed that "true=false" is legal option
+            if (left.getReturnType() != right.getReturnType()){
+                throw new TYPE_ERROR();
+            }
+        }
+    }
+
+    public AbstractExpression getLeftOp(){
+        return left;
     }
 
     public AbstractExpression getRightOp(){
@@ -95,7 +120,7 @@ public class BinaryExpression extends AbstractExpression {
         return operation;
     }
 
-    private Utilities.ReturnType getReturnType(Utilities.Operation operation){
+    private Utilities.ReturnType setReturnType(Utilities.Operation operation){
         return operation.ordinal() < 3 ? Utilities.ReturnType.ARITHMETIC : Utilities.ReturnType.LOGICAL;
     }
 

@@ -1,4 +1,4 @@
-package arraymappring.src;
+package arraymapping.src;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,14 @@
-package arraymappring.src;
+package arraymapping.src;
+
+import arraymapping.util.Utilities;
 
 public class FilterCall extends Call {
 
     public FilterCall(String content){
         super(content);
+        if (expression.returnType != Utilities.ReturnType.LOGICAL){
+            throw new TYPE_ERROR();
+        }
     }
 
     @Override

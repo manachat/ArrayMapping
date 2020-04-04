@@ -1,6 +1,4 @@
-package arraymappring.src;
-
-import java.util.Scanner;
+package arraymapping.src;
 
 public class Main {
     public static void main(String[] args){
@@ -10,7 +8,7 @@ public class Main {
         CallChain call = CallChainInterpreter.parseString(input);
         */
 
-        CallChain test = new CallChain("");
+
     }
 
 }

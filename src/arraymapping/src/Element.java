@@ -1,4 +1,6 @@
-package arraymappring.src;
+package arraymapping.src;
+
+import arraymapping.util.Utilities;
 
 public class Element extends AbstractExpression {
 

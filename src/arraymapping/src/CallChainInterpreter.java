@@ -1,4 +1,4 @@
-package arraymappring.src;
+package arraymapping.src;
 
 public class CallChainInterpreter {
     private enum Condition{

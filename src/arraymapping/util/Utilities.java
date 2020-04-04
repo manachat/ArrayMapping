@@ -1,4 +1,6 @@
-package arraymappring.src;
+package arraymapping.util;
+
+import arraymapping.src.SYNTAX_ERROR;
 
 public class Utilities {
 
