@@ -1,6 +1,8 @@
 # ArrayMapping
 JetBrains Internship test problem
 
+Автор: Филонов Всеволод
+
 Финальная версия в ветке master
 
 Все основные классы в пакете arraymapping.src
