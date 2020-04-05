@@ -2,12 +2,20 @@ package arraymapping.src;
 
 import arraymapping.util.Utilities;
 
+/**
+ * Class represents Map function
+ */
 public class MapCall extends Call {
 
-    public MapCall(String content){
-        super(content);
-        if (expression.returnType != Utilities.ReturnType.ARITHMETIC){
-            throw new TYPE_ERROR();
+    /**
+     * Constructor. Parses raw string and creates expression
+     * If expression type is incompatible, throws TYPE_ERROR
+     * @param rawString
+     */
+    public MapCall(String rawString){
+        super(rawString);
+        if (expression.returnType != Utilities.ReturnType.ARITHMETIC){//checks type of parsed expression
+            throw new TYPE_ERROR("Type error. \"map\" cannot be applied to logical expression.");
         }
     }
 

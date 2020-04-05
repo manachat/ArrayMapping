@@ -84,7 +84,7 @@ public class Utilities {
             case '|':
                 return Operation.OR;
             default:
-                throw new SYNTAX_ERROR();
+                throw new SYNTAX_ERROR("Syntax error. Cannot resolve operation \"" + symbol + "\".");
         }
     }
 }

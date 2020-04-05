@@ -44,5 +44,8 @@ class CallChainTest {
         test = new CallChain("map{(element+8)}%>%filter{(element>0)}%>%map{42}");
         test.refactor();
         assertEquals("filter{((element+8)>0)}%>%map{42}", test.toString());
+        test = new CallChain("map{42}%>%map{element}");
+        test.refactor();
+        assertEquals("filter{(0<1)}%>%map{42}", test.toString());
     }
 }

@@ -2,11 +2,17 @@ package arraymapping.src;
 
 import arraymapping.util.Utilities;
 
+/**
+ * Represents abstract call function.
+ */
 public abstract class Call extends AbstractCall {
-    protected AbstractExpression expression;
-    protected String rawContent;
+    protected AbstractExpression expression; //expression inside function
+    protected String rawContent; //raw string with expression
 
-
+    /**
+     * Constructor. Parses content inside braces
+     * @param rawContent raw function content string
+     */
     public Call(String rawContent){
         this.rawContent = rawContent;
         parseCall();
@@ -20,6 +26,9 @@ public abstract class Call extends AbstractCall {
         this.expression = expression;
     }
 
+    /**
+     * Defines expression type inside braces and creates expression object.
+     */
     private void parseCall(){
         char firstChar = rawContent.charAt(0);
         if (firstChar == 'e'){
@@ -31,8 +40,8 @@ public abstract class Call extends AbstractCall {
         else if (firstChar == '('){
             expression = new BinaryExpression(rawContent.substring(1, rawContent.length() - 1)); //trim ( and )
         }
-        else {
-            throw new SYNTAX_ERROR();
+        else { //if none of expression types met
+            throw new SYNTAX_ERROR("Syntax error. Unexpected symbol \"" + firstChar + "\".");
         }
     }
 
