@@ -11,7 +11,7 @@ public class Element extends AbstractExpression {
 
     @Override
     protected void parseContent(){
-        if (!content.equals("element")){
+        if (!rawString.equals("element")){
             throw new SYNTAX_ERROR();
         }
         returnType = Utilities.ReturnType.ARITHMETIC;

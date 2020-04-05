@@ -4,11 +4,11 @@ import arraymapping.util.Utilities;
 
 public abstract class Call extends AbstractCall {
     protected AbstractExpression expression;
-    protected String content;
+    protected String rawContent;
 
 
-    public Call(String content){
-        this.content = content;
+    public Call(String rawContent){
+        this.rawContent = rawContent;
         parseCall();
     }
 
@@ -16,19 +16,24 @@ public abstract class Call extends AbstractCall {
         return expression;
     }
 
+    void setExpression(AbstractExpression expression){
+        this.expression = expression;
+    }
+
     private void parseCall(){
-        char firstChar = content.charAt(0);
+        char firstChar = rawContent.charAt(0);
         if (firstChar == 'e'){
-            expression = new Element(content);
+            expression = new Element(rawContent);
         }
         else if (Utilities.isDigit(firstChar)){
-            expression = new ConstantExpression(content);
+            expression = new ConstantExpression(rawContent);
         }
         else if (firstChar == '('){
-            expression = new BinaryExpression(content.substring(1, content.length() - 1)); //trim ( and )
+            expression = new BinaryExpression(rawContent.substring(1, rawContent.length() - 1)); //trim ( and )
         }
         else {
             throw new SYNTAX_ERROR();
         }
     }
+
 }

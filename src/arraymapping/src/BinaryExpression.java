@@ -13,6 +13,13 @@ public class BinaryExpression extends AbstractExpression {
         checkOperandTypes();
     }
 
+    public BinaryExpression(AbstractExpression left, Utilities.Operation op, AbstractExpression right){
+        this.left = left;
+        this.operation = op;
+        this.right = right;
+        checkOperandTypes();
+    }
+
     private enum Condition {
         DEFAULT,
         LEFT_ELEMENT,
@@ -24,7 +31,7 @@ public class BinaryExpression extends AbstractExpression {
     @Override
     protected void parseContent(){
         Condition condition = Condition.DEFAULT;
-        char[] input = content.toCharArray();
+        char[] input = rawString.toCharArray();
         int ignoreBrackets = 0;
         int currIndex = 0;
         for (char currChar : input){
@@ -46,14 +53,14 @@ public class BinaryExpression extends AbstractExpression {
                     break;
                 case LEFT_ELEMENT:
                     if (Utilities.isOperation(currChar)){
-                        left = new Element(content.substring(0, currIndex));
+                        left = new Element(rawString.substring(0, currIndex));
                         operation = Utilities.charToOperation(currChar);
                         condition = Condition.RIGHT;
                     }
                     break;
                 case LEFT_CONSTANT:
                     if (Utilities.isOperation(currChar)){
-                        left = new ConstantExpression(content.substring(0, currIndex));
+                        left = new ConstantExpression(rawString.substring(0, currIndex));
                         operation = Utilities.charToOperation(currChar);
                         condition = Condition.RIGHT;
                     }
@@ -61,7 +68,7 @@ public class BinaryExpression extends AbstractExpression {
                     break;
                 case LEFT_BINARY:
                     if (ignoreBrackets == 0){
-                        left = new BinaryExpression(content.substring(1, currIndex - 1));
+                        left = new BinaryExpression(rawString.substring(1, currIndex - 1));
                         operation = Utilities.charToOperation(currChar);
                         condition = Condition.RIGHT;
                     }
@@ -74,13 +81,13 @@ public class BinaryExpression extends AbstractExpression {
                     break;
                 case RIGHT:
                     if (currChar == 'e'){
-                        right = new Element(content.substring(currIndex));
+                        right = new Element(rawString.substring(currIndex));
                     }
                     else if (Utilities.isDigit(currChar)){
-                        right = new ConstantExpression(content.substring(currIndex));
+                        right = new ConstantExpression(rawString.substring(currIndex));
                     }
                     else if (currChar == '('){
-                        right = new BinaryExpression(content.substring(currIndex + 1, content.length() - 1));
+                        right = new BinaryExpression(rawString.substring(currIndex + 1, rawString.length() - 1));
                     }
                     else {
                         throw new SYNTAX_ERROR();
@@ -123,6 +130,14 @@ public class BinaryExpression extends AbstractExpression {
 
     public Utilities.Operation getOperation(){
         return operation;
+    }
+
+    public void setLeftOp(AbstractExpression newLeft){
+        left = newLeft;
+    }
+
+    public void setRightOp(AbstractExpression newRight){
+        right = newRight;
     }
 
     private Utilities.ReturnType setReturnType(Utilities.Operation operation){

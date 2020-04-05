@@ -14,7 +14,7 @@ public class ConstantExpression extends AbstractExpression {
     @Override
     protected void parseContent(){
         try{
-            number = Integer.parseInt(content);
+            number = Integer.parseInt(rawString);
         }
         catch (NumberFormatException ex){
             throw new SYNTAX_ERROR();
